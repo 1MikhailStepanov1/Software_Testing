@@ -17,11 +17,12 @@ public class SystemIntegrationTest {
     MathSystem system = new MathSystem(new TaskMath());
 
     @ParameterizedTest
-    @ValueSource(doubles={-3.804, -5.292, -2.0457, -1.2789, -10.088, -11.575, -11.339, -7.245, -5.461})
+    @ValueSource(doubles={-7.562, -3.804, -5.292, -2.0457, -1.279, -10.088, -11.575, -11.339, -7.245, -5.461, -5.292, -5.056, -4.712, -4.062, -2.046})
     void testSpecialPoints(double x) {
         double left = system.calculateFunction(x - STEP);
         double right = system.calculateFunction(x + STEP);
         double res = system.calculateFunction(x);
+        System.out.println(res);
         assertTrue(res > left && res > right || res < left && res < right);
     }
 

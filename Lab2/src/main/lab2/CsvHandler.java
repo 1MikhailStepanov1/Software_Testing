@@ -34,6 +34,12 @@ public class CsvHandler {
         TaskMath math = new TaskMath();
         MathSystem system = new MathSystem(math);
         functionToCSV(math::cos, "cos");
+        functionToCSV(math::sin, "sin");
+        functionToCSV(math::tan, "tan");
+        functionToCSV(math::cotan, "cotan");
+        functionToCSV(math::sec, "sec");
+        functionToCSV(math::cosec, "cosec");
+        functionToCSV(math::ln, "ln");
         functionToCSV(system::calculateFunction, "system");
         functionToCSV(system::trigonometricFunction, "trigonometry");
         functionToCSV(system::logarithmicFunction, "logarithm");
