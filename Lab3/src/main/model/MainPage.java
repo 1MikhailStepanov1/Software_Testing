@@ -1,9 +1,6 @@
 package model;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -25,14 +22,26 @@ public class MainPage {
     @FindBy(xpath = "//html/body//div[@tabindex=\"505\" and @role=\"textbox\"]/div[1]")
     private WebElement letterInput;
 
-//    @FindBy(xpath = "//html/body//div[@data-test-id=\"underlay-wrapper\"]")
     @FindBy(xpath = "//html/body//button[@data-test-id = \"send\"]")
     private WebElement sendButton;
 
-//    @FindBy(xpath = "//html/body//a[contains(/*, \"Письмо отправлено\")]")
-//    @FindBy(xpath = "/html/body/div[10]/div/div/div[2]/div[2]/div/div/div[2]/a")
     @FindBy(xpath = "//a[contains(@class, 'layer__link')]")
     private WebElement messageLetterSend;
+
+    @FindBy(xpath = "//div[contains(@class, 'search-panel-button')]")
+    private WebElement searchStringButton;
+
+    @FindBy(xpath = "//input[contains(@class, 'mail')]")
+    private WebElement searchString;
+
+    @FindBy(xpath = "//span[@class='octopus__title octopus__title_with-subtitle']")
+    private WebElement emptySearchMessage;
+
+    @FindBy(xpath = "//a[@class='llc llc_pony-mode llc_normal llc_first llc_new llc_new-selection js-letter-list-item js-tooltip-direction_letter-bottom']")
+    private WebElement sentMessage;
+
+    @FindBy(xpath = "//h2")
+    private WebElement messageTheme;
     public MainPage(WebDriver driver){
         this.driver = driver;
         PageFactory.initElements(this.driver, this);
@@ -53,7 +62,6 @@ public class MainPage {
     public void setLetterInput(String input){
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("arguments[0].innerHTML = \"" + input + "\";", letterInput);
-//        letterInput.sendKeys(input);
     }
 
     public void sendButtonClick(){
@@ -64,6 +72,27 @@ public class MainPage {
         return messageLetterSend;
     }
 
+    public void searchStringButtonClick(){
+        searchStringButton.click();
+    }
+
+    public void searchStringInput(String input){
+        searchString.sendKeys(input);
+        searchString.sendKeys(Keys.ENTER);
+    }
+
+    public WebElement getEmptySearchMessage(){
+        return emptySearchMessage;
+    }
+
+    public void sentMessageClick(){
+        sentMessage.click();
+    }
+
+    public WebElement getMessageTheme(){
+        return messageTheme;
+    }
+
     public void waitWriteLetterPage(){
         WebDriverWait wait = new WebDriverWait(driver, 10);
         wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//html/body//div[@data-test-id=\"underlay-wrapper\"]")));
@@ -71,13 +100,36 @@ public class MainPage {
 
     public void waitSuccessMessage(){
         WebDriverWait wait = new WebDriverWait(driver, 10);
-//        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//html/body//a[contains(//*, \"Письмо отправлено\")]")));
-//        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("/html/body/div[10]/div/div/div[2]/div[2]/div/div/div[2]/a")));
         wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//a[contains(@class, 'layer__link')]")));
     }
 
     public void waitWriteMessageButton(){
         WebDriverWait wait = new WebDriverWait(driver, 10);
         wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//html/body//a[@data-title-shortcut=\"N\"]")));
+    }
+
+    public void waitSearchStringButton(){
+        WebDriverWait wait = new WebDriverWait(driver, 10);
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[contains(@class, 'search-panel-button')]")));
+    }
+
+    public void waitSearchString(){
+        WebDriverWait wait = new WebDriverWait(driver, 10);
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//input[contains(@class, 'mail')]")));
+    }
+
+    public void waitEmptySearchMessage(){
+        WebDriverWait wait = new WebDriverWait(driver, 10);
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//span[@class='octopus__title octopus__title_with-subtitle']")));
+    }
+
+    public void waitSentMessage(){
+        WebDriverWait wait = new WebDriverWait(driver, 10);
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//a[@class='llc llc_pony-mode llc_normal llc_first llc_new llc_new-selection js-letter-list-item js-tooltip-direction_letter-bottom']")));
+    }
+
+    public void waitMessageTheme(){
+        WebDriverWait wait = new WebDriverWait(driver, 10);
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//h2")));
     }
 }

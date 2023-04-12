@@ -1,4 +1,3 @@
-import com.sun.tools.javac.Main;
 import model.LoginPage;
 import model.MainPage;
 import org.junit.jupiter.api.AfterEach;
@@ -6,7 +5,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.Dimension;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import utils.ConfigProperties;
 import utils.DriversHandler;
 
@@ -61,11 +59,44 @@ public class MainPageTest {
             mainPage.writeMailButtonCLick();
             mainPage.waitWriteLetterPage();
             mainPage.setRecipientMail(ConfigProperties.getProp("login"));
-            mainPage.setMailTheme("Test");
+            mainPage.setMailTheme(ConfigProperties.getProp("message_theme"));
             mainPage.setLetterInput(ConfigProperties.getProp("message_text"));
             mainPage.sendButtonClick();
             mainPage.waitSuccessMessage();
             assertEquals("Письмо отправлено", mainPage.getMessageLetterSend().getText());
+        });
+    }
+
+    @Test
+    @DisplayName("Empty search test")
+    public void emptySearchTest (){
+        mainPages.parallelStream().forEach(mainPage -> {
+            mainPage.waitSearchStringButton();
+            mainPage.searchStringButtonClick();
+            mainPage.waitSearchString();
+            mainPage.searchStringInput(ConfigProperties.getProp("wrong_search"));
+            mainPage.waitEmptySearchMessage();
+            assertEquals("По вашему запросу ничего не найдено", mainPage.getEmptySearchMessage().getText());
+        });
+    }
+
+    @Test
+    @DisplayName("Read send letter test")
+    public void readSentLetterTest(){
+        mainPages.parallelStream().forEach(mainPage -> {
+            mainPage.waitSearchStringButton();
+            mainPage.searchStringButtonClick();
+            mainPage.waitSearchString();
+            mainPage.searchStringInput(ConfigProperties.getProp("message_theme"));
+            mainPage.waitSentMessage();
+            try {
+                TimeUnit.SECONDS.sleep(5);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+            mainPage.sentMessageClick();
+            mainPage.waitMessageTheme();
+            assertEquals("Self: Test", mainPage.getMessageTheme().getText());
         });
     }
 }
