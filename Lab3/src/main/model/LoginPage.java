@@ -22,7 +22,7 @@ public class LoginPage {
     @FindBy(xpath = "//html/body//input[@type=\"password\"]")
     private WebElement passwordInput;
 
-    @FindBy(xpath = "/html/body/div[1]/div[2]/div[2]/div/div/div/div/div/form/div[2]/div/div[3]/div/div/div[1]/div/button")
+    @FindBy(xpath = "//html/body//button[@data-test-id=\"submit-button\" and @type=\"submit\"]")
     private WebElement submitPassword;
 
     @FindBy(xpath = "//html/body//div[@data-testid=\"whiteline-account\"]")
