@@ -6,6 +6,8 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.util.List;
+
 //page_url=https://e.mail.ru/inbox?app_id_mytracker=52695&authid=lgden38i.8xh&back=1%2C1&dwhsplit=s10273.b1ss12743s&from=octavius&x-login-auth=1
 public class MainPage {
 
@@ -37,8 +39,8 @@ public class MainPage {
     @FindBy(xpath = "//span[@class='octopus__title octopus__title_with-subtitle']")
     private WebElement emptySearchMessage;
 
-    @FindBy(xpath = "//a[@class='llc llc_pony-mode llc_normal llc_first llc_new llc_new-selection js-letter-list-item js-tooltip-direction_letter-bottom']")
-    private WebElement sentMessage;
+    @FindBy(xpath = "//a[@data-id=\"16812937811856411461\"]")
+    private WebElement searchMessage;
 
     @FindBy(xpath = "//h2")
     private WebElement messageTheme;
@@ -86,7 +88,9 @@ public class MainPage {
     }
 
     public void sentMessageClick(){
-        sentMessage.click();
+//        List<WebElement> elements = driver.findElements(By.xpath("//div[contains(@class, 'ReactVirtualized__Grid__innerScrollContainer') and contains(@class, 'dataset__items')]"));
+//        elements.get(3).click();
+        searchMessage.click();
     }
 
     public WebElement getMessageTheme(){
@@ -123,9 +127,10 @@ public class MainPage {
         wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//span[@class='octopus__title octopus__title_with-subtitle']")));
     }
 
-    public void waitSentMessage(){
+    public void waitSearchResultSet(){
         WebDriverWait wait = new WebDriverWait(driver, 10);
-        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//a[@class='llc llc_pony-mode llc_normal llc_first llc_new llc_new-selection js-letter-list-item js-tooltip-direction_letter-bottom']")));
+//        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[contains(@class, 'ReactVirtualized__Grid__innerScrollContainer') and contains(@class, 'dataset__items')]")));
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//a[@data-id=\"16812937811856411461\"]")));
     }
 
     public void waitMessageTheme(){

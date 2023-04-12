@@ -88,12 +88,12 @@ public class MainPageTest {
             mainPage.searchStringButtonClick();
             mainPage.waitSearchString();
             mainPage.searchStringInput(ConfigProperties.getProp("message_theme"));
-            mainPage.waitSentMessage();
-            try {
-                TimeUnit.SECONDS.sleep(5);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
+            mainPage.waitSearchResultSet();
+//            try {
+//                TimeUnit.SECONDS.sleep(5);
+//            } catch (InterruptedException e) {
+//                throw new RuntimeException(e);
+//            }
             mainPage.sentMessageClick();
             mainPage.waitMessageTheme();
             assertEquals("Self: Test", mainPage.getMessageTheme().getText());
