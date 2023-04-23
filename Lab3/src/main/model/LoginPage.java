@@ -20,7 +20,7 @@ public class LoginPage {
     @FindBy(xpath = "/html/body/div[1]/div[2]/div[2]/div/div/div/div/div/form/div[2]/div[2]/div[3]/div/div/div[1]/button")
     private WebElement submitLoginButton;
 
-    @FindBy(xpath = "//input[contains(@name, 'password')]")
+    @FindBy(xpath = "//input[contains(@type, 'password')]")
     private WebElement passwordInput;
 
     @FindBy(xpath = "//html/body//button[@data-test-id=\"submit-button\" and @type=\"submit\"]")

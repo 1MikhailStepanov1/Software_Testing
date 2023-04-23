@@ -44,7 +44,7 @@ public class MainPage {
     private WebElement messageTheme;
 
     @FindBy(xpath = "//div[contains(@title, 'Выделить')]")
-    private WebElement highlightAllLettersButton;
+    private WebElement highlightLettersButton;
 
     @FindBy(xpath = "//span[@title='Удалить']")
     private WebElement deleteButton;
@@ -52,8 +52,15 @@ public class MainPage {
     @FindBy(xpath = "//div[contains(@class, 'submit')]")
     private WebElement submitDeleteButton;
 
-    @FindBy(xpath = "//span[@class='octopus__title']")
+    @FindBy(xpath = "//span[contains(@class, 'octopus')]")
+//    @FindBy(xpath = "/html/body/div[5]/div/div[1]/div[1]/div/div[2]/span/div[2]/div/div/div/div/div[2]/div/div/div/div/div/div/div[2]/span")
     private WebElement emptyFolderText;
+
+    @FindBy(xpath = "//a[contains(@title, 'Корзина')]")
+    private WebElement trashIcon;
+
+    @FindBy(xpath = "//span[@title='Выделить все']")
+    private WebElement highlightAllLettersButton;
 
     public MainPage(WebDriver driver){
         this.driver = driver;
@@ -106,13 +113,17 @@ public class MainPage {
         return messageTheme;
     }
 
-    public void highlightALlLettersButtonClick(){ highlightAllLettersButton.click(); }
+    public void highlightLettersButtonClick(){ highlightLettersButton.click(); }
 
     public void deleteButtonCLick(){ deleteButton.click(); }
 
     public void submitDeleteButtonClick(){ submitDeleteButton.click(); }
 
     public WebElement getEmptyFolderText() { return emptyFolderText; }
+
+    public void trashIconClick(){ trashIcon.click(); }
+
+    public void highlightAllLettersButtonClick(){ highlightAllLettersButton.click(); }
 
     public void waitWriteLetterPage(){
         WebDriverWait wait = new WebDriverWait(driver, 10);
@@ -154,7 +165,7 @@ public class MainPage {
         wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//h2")));
     }
 
-    public void waitHighlightAllLettersButton(){
+    public void waitHighlightLettersButton(){
         WebDriverWait wait = new WebDriverWait(driver, 10);
         wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[contains(@title, 'Выделить')]")));
     }
@@ -171,6 +182,17 @@ public class MainPage {
 
     public void waitEmptyFolderText(){
         WebDriverWait wait = new WebDriverWait(driver, 10);
-        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//span[@class='octopus__title']")));
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//span[contains(@class, 'octopus')]")));
+//        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("/html/body/div[5]/div/div[1]/div[1]/div/div[2]/span/div[2]/div/div/div/div/div[2]/div/div/div/div/div/div/div[2]/span")));
+    }
+
+    public void waitTrashIcon(){
+        WebDriverWait wait = new WebDriverWait(driver, 10);
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//a[contains(@title, 'Корзина')]")));
+    }
+
+    public void waitHighlightAllLettersButton(){
+        WebDriverWait wait = new WebDriverWait(driver, 10);
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//span[@title='Выделить все']")));
     }
 }

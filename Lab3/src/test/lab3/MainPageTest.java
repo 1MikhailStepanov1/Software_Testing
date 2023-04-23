@@ -100,13 +100,40 @@ public class MainPageTest {
     public void deleteLetter(){
         mainPages.parallelStream().forEach(mainPage -> {
             mainPage.waitHighlightAllLettersButton();
-            mainPage.highlightALlLettersButtonClick();
+            mainPage.highlightLettersButtonClick();
             mainPage.waitDeleteButton();
             mainPage.deleteButtonCLick();
             mainPage.waitSubmitDeleteButton();
             mainPage.submitDeleteButtonClick();
+            try {
+                TimeUnit.SECONDS.sleep(5);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
             mainPage.waitEmptyFolderText();
             assertEquals("Писем нет", mainPage.getEmptyFolderText().getText() );
+        });
+    }
+
+    @Test
+    @DisplayName("Clear trash test")
+    public void clearTrash(){
+        mainPages.parallelStream().forEach(mainPage -> {
+            mainPage.waitTrashIcon();
+            mainPage.trashIconClick();
+            mainPage.waitHighlightAllLettersButton();
+            mainPage.highlightAllLettersButtonClick();
+            mainPage.waitDeleteButton();
+            mainPage.deleteButtonCLick();
+            mainPage.waitSubmitDeleteButton();
+            mainPage.submitDeleteButtonClick();
+            try {
+                TimeUnit.SECONDS.sleep(5);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+            mainPage.waitEmptyFolderText();
+            assertEquals("В корзине пусто", mainPage.getEmptyFolderText().getText() );
         });
     }
 }
