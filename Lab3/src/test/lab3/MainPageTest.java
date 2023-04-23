@@ -88,15 +88,25 @@ public class MainPageTest {
             mainPage.searchStringButtonClick();
             mainPage.waitSearchString();
             mainPage.searchStringInput(ConfigProperties.getProp("message_theme"));
-            mainPage.waitSearchResultSet();
-//            try {
-//                TimeUnit.SECONDS.sleep(5);
-//            } catch (InterruptedException e) {
-//                throw new RuntimeException(e);
-//            }
+            mainPage.waitSearchMessage();
             mainPage.sentMessageClick();
             mainPage.waitMessageTheme();
             assertEquals("Self: Test", mainPage.getMessageTheme().getText());
+        });
+    }
+
+    @Test
+    @DisplayName("Delete letter test")
+    public void deleteLetter(){
+        mainPages.parallelStream().forEach(mainPage -> {
+            mainPage.waitHighlightAllLettersButton();
+            mainPage.highlightALlLettersButtonClick();
+            mainPage.waitDeleteButton();
+            mainPage.deleteButtonCLick();
+            mainPage.waitSubmitDeleteButton();
+            mainPage.submitDeleteButtonClick();
+            mainPage.waitEmptyFolderText();
+            assertEquals("Писем нет", mainPage.getEmptyFolderText().getText() );
         });
     }
 }

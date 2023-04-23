@@ -9,6 +9,7 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+//page_url=e.mail.ru/
 public class LoginPage {
 
     private final WebDriver driver;
@@ -19,7 +20,7 @@ public class LoginPage {
     @FindBy(xpath = "/html/body/div[1]/div[2]/div[2]/div/div/div/div/div/form/div[2]/div[2]/div[3]/div/div/div[1]/button")
     private WebElement submitLoginButton;
 
-    @FindBy(xpath = "//html/body//input[@type=\"password\"]")
+    @FindBy(xpath = "//input[contains(@name, 'password')]")
     private WebElement passwordInput;
 
     @FindBy(xpath = "//html/body//button[@data-test-id=\"submit-button\" and @type=\"submit\"]")
@@ -55,7 +56,7 @@ public class LoginPage {
 
     public void waitUntilPasswordInputIsPresent(){
         WebDriverWait wait = new WebDriverWait(driver, 10);
-        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("/html/body/div[1]/div[2]/div[2]/div/div/div/div/div/form/div[2]/div/div[2]/div/div/div/div/div/input")));
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//input[contains(@type, 'password')]")));
     }
 
     public void waitUntilAuthorize(){

@@ -6,8 +6,6 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.util.List;
-
 //page_url=https://e.mail.ru/inbox?app_id_mytracker=52695&authid=lgden38i.8xh&back=1%2C1&dwhsplit=s10273.b1ss12743s&from=octavius&x-login-auth=1
 public class MainPage {
 
@@ -44,6 +42,19 @@ public class MainPage {
 
     @FindBy(xpath = "//h2")
     private WebElement messageTheme;
+
+    @FindBy(xpath = "//div[contains(@title, 'Выделить')]")
+    private WebElement highlightAllLettersButton;
+
+    @FindBy(xpath = "//span[@title='Удалить']")
+    private WebElement deleteButton;
+
+    @FindBy(xpath = "//div[contains(@class, 'submit')]")
+    private WebElement submitDeleteButton;
+
+    @FindBy(xpath = "//span[@class='octopus__title']")
+    private WebElement emptyFolderText;
+
     public MainPage(WebDriver driver){
         this.driver = driver;
         PageFactory.initElements(this.driver, this);
@@ -88,14 +99,20 @@ public class MainPage {
     }
 
     public void sentMessageClick(){
-//        List<WebElement> elements = driver.findElements(By.xpath("//div[contains(@class, 'ReactVirtualized__Grid__innerScrollContainer') and contains(@class, 'dataset__items')]"));
-//        elements.get(3).click();
         searchMessage.click();
     }
 
     public WebElement getMessageTheme(){
         return messageTheme;
     }
+
+    public void highlightALlLettersButtonClick(){ highlightAllLettersButton.click(); }
+
+    public void deleteButtonCLick(){ deleteButton.click(); }
+
+    public void submitDeleteButtonClick(){ submitDeleteButton.click(); }
+
+    public WebElement getEmptyFolderText() { return emptyFolderText; }
 
     public void waitWriteLetterPage(){
         WebDriverWait wait = new WebDriverWait(driver, 10);
@@ -127,14 +144,33 @@ public class MainPage {
         wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//span[@class='octopus__title octopus__title_with-subtitle']")));
     }
 
-    public void waitSearchResultSet(){
+    public void waitSearchMessage(){
         WebDriverWait wait = new WebDriverWait(driver, 10);
-//        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[contains(@class, 'ReactVirtualized__Grid__innerScrollContainer') and contains(@class, 'dataset__items')]")));
         wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//a[@data-id=\"16812937811856411461\"]")));
     }
 
     public void waitMessageTheme(){
         WebDriverWait wait = new WebDriverWait(driver, 10);
         wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//h2")));
+    }
+
+    public void waitHighlightAllLettersButton(){
+        WebDriverWait wait = new WebDriverWait(driver, 10);
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[contains(@title, 'Выделить')]")));
+    }
+
+    public void waitDeleteButton(){
+        WebDriverWait wait = new WebDriverWait(driver, 10);
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//span[@title='Удалить']")));
+    }
+
+    public void waitSubmitDeleteButton(){
+        WebDriverWait wait = new WebDriverWait(driver, 10);
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[contains(@class, 'submit')]")));
+    }
+
+    public void waitEmptyFolderText(){
+        WebDriverWait wait = new WebDriverWait(driver, 10);
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//span[@class='octopus__title']")));
     }
 }
